@@ -10,7 +10,7 @@ st.set_page_config(page_title="محاميك الذكي", page_icon="⚖️")
 if "GOOGLE_API_KEY" in st.secrets:
     genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 else:
-    st.error("API Key missing! Please add it to Streamlit Secrets.")genai.configure(api_key=INTERNAL_KEY)
+    st.error("API Key missing! Please add it to Streamlit Secrets.")
 
 st.title("⚖️ منصة محاميك الذكي")
 st.info("قم برفع ملف العقد لتحليله واستخراج المخاطر القانونية فوراً.")
@@ -75,3 +75,4 @@ if analyze_btn:
 st.markdown("---")
 
 st.center = st.caption("جميع الحقوق محفوظة -  محاميك الذكي 2026")
+
