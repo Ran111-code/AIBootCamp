@@ -5,18 +5,16 @@ import pandas as pd
 import numpy as np
 import time
 
-# --- 1. إعدادات الصفحة الأساسية ---
 st.set_page_config(page_title="محاميك الذكي", page_icon="⚖️")
 
-# إعداد المفتاح (مخفي برمجياً)
-INTERNAL_KEY = "AIzaSyCiqjPPzqDI-KeYu2fUKGgAzaCya41O-Y4" 
-genai.configure(api_key=INTERNAL_KEY)
+if "GOOGLE_API_KEY" in st.secrets:
+    genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+else:
+    st.error("API Key missing! Please add it to Streamlit Secrets.")genai.configure(api_key=INTERNAL_KEY)
 
-# --- 2. الواجهة الرسمية (بدون زينة إضافية) ---
 st.title("⚖️ منصة محاميك الذكي")
 st.info("قم برفع ملف العقد لتحليله واستخراج المخاطر القانونية فوراً.")
 
-# الجانب الجانبي للرفع (كما في النسخة الأولى)
 with st.sidebar:
     st.header("إعدادات الرفع")
     uploaded_file = st.file_uploader("ارفع العقد (PDF)", type=["pdf"])
@@ -24,11 +22,9 @@ with st.sidebar:
     st.divider()
     st.caption(" معسكر الذكاء الاصطناعي 2026")
 
-# --- 3. منطق العمليات ---
 if analyze_btn:
     if uploaded_file:
         try:
-            # استخدام أداة الحالة الرسمية (نظيفة وواضحة)
             with st.status("جاري التحليل...") as status:
                 st.write("استخراج النصوص من الملف...")
                 reader = PyPDF2.PdfReader(uploaded_file)
@@ -55,7 +51,7 @@ if analyze_btn:
                 
                 status.update(label="✅ اكتمل التحليل!", state="complete", expanded=False)
 
-            # --- 4. عرض النتائج بوضوح ---
+            # --- . عرض النتائج بوضوح ---
             st.subheader("📊 نتائج التحليل الرقمي")
             col1, col2 = st.columns([1, 2])
             
@@ -77,4 +73,5 @@ if analyze_btn:
 
 # تذييل بسيط
 st.markdown("---")
+
 st.center = st.caption("جميع الحقوق محفوظة -  محاميك الذكي 2026")
